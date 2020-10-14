@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require __DIR__ . '/bootstrap.php';
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] != 1) {
@@ -11,9 +15,7 @@ uasort($data, function($a, $b) {
     return $a['surname'] <=> $b['surname'];
 });
 
-setBody();
-setHeader();
-setMenu(false, $_SESSION['role'] === 'admin');
+require __DIR__ . '/header.php';
 
 if (!empty($_POST)) {
     foreach ($data as $index => &$account) {
@@ -63,6 +65,8 @@ if (!empty($_POST)) {
     file_put_contents(__DIR__ .'/data/data.json', json_encode($data));
 }
 
+setMenu(false, $_SESSION['role'] === 'admin');
+
 echo '<div class="main">';
 echo '<div class="container list-container">';
 foreach ($data as &$account) {
@@ -88,3 +92,5 @@ echo '</div></div>';
 
 setFooter();
 finishBody();
+?>
+<link rel="stylesheet" href="./css/main.css">

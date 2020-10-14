@@ -1,6 +1,11 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require __DIR__ . '/bootstrap.php';
+require __DIR__ . '/header.php';
 
 if (!isset($_SESSION['login']) || $_SESSION['login'] != 1) {
     header('Location: ./index.php');
@@ -61,6 +66,7 @@ for ($i = 0; $i < 20; $i++) {
     $account_id .= $numbers[rand(0, count($numbers) - 1)];
 }
 
+echo '<style> ' . file_get_contents(__DIR__ . '/css/main.css') . '</style>';
 echo '<div class="main">';
 echo '<div class="container new-container">';
 echo '<form action="" method="post">';

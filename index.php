@@ -1,11 +1,13 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require __DIR__ . '/bootstrap.php';
 
-setBody();
-setHeader();
 if (!empty($_POST)) {
-    $users = json_decode(file_get_contents(__DIR__ .'\data\\user.json'), 1);
+    $users = json_decode(file_get_contents(__DIR__ .'/data/user.json'), 1);
     foreach ($users as $user) {
         if ($user['user'] === $_POST['user'] &&
         $user['password'] === md5($_POST['password'])) {
@@ -20,11 +22,14 @@ if (!empty($_POST)) {
     }
 }
 
-if (isset($_GET['logout'])) {
-    session_destroy();
-    successMessage('Logout Successful');
+if (isset($_GET['logout'])) {   
 }
 
+require __DIR__ . '/header.php';
+
+setBody();
+setHeader();
+echo '<style> ' . file_get_contents(__DIR__ . '/css/main.css') . '</style>';
 echo '<div class="main">';
 echo '<div class="container login-container">';
 echo '<form action="?" method="post">';
@@ -35,4 +40,3 @@ echo '</form>';
 echo '</div></div>';
 
 setFooter();
-finishBody();
